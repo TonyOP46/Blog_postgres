@@ -1,0 +1,66 @@
+CREATE TABLE "User" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "email" varchar NOT NULL,
+  "password" varchar NOT NULL,
+  "age" int NOT NULL
+);
+
+CREATE TABLE "Posts" (
+  "id" SERIAL PRIMARY KEY,
+  "title" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "author" varchar NOT NULL,
+  "content" varchar NOT NULL,
+  "user_id" int NOT NULL
+);
+
+CREATE TABLE "Tags" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "comment" varchar NOT NULL
+);
+
+CREATE TABLE "post_tags" (
+  "id" SERIAL PRIMARY KEY,
+  "post_id" int NOT NULL,
+  "tag_id" int NOT NULL
+);
+
+ALTER TABLE "Posts" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id");
+
+ALTER TABLE "post_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "Tags" ("id");
+
+ALTER TABLE "post_tags" ADD FOREIGN KEY ("post_id") REFERENCES "Posts" ("id");
+
+insert into "User" (name, email, "password", age) values 
+('Tony', 'tony@gmail.com', '1234', 28),
+('Miguel', 'miguel@gmail.com', '4321', 29),
+('Daglin', 'daglin@gmail.com', '5678', 27),
+('Diliyis', 'diliyis@hotmail.com', '8765', 30);
+
+select * from "User";
+
+insert into "Posts" (title, description, author, "content", user_id) values 
+('hacking', 'how hack wireless', 'Ian Rosas', 'learn to hack', 1),
+('book of literature', '100 years of loneliness', 'Ian Rosas', 'Read', 2),
+('learning Node.js', 'How to learn Node', 'Ian Rosas', 'Learn Node.js', 3),
+('Writing Sequelize in node', 'Commands for install Sequelize', 'Ian Rosas', 'Install Sequelize', 4);
+
+select * from "Posts";
+
+insert into "Tags" (name, comment) values 
+('Hack', 'Doing a try out hack'),
+('Literature', 'Write a book'),
+('Node.js', 'Practice code'),
+('Sequelize', 'write a commands line');
+
+select * from "Tags";
+
+insert into post_tags (post_id, tag_id) values 
+(1,1),
+(2,2),
+(3,3),
+(4,4);
+
+select * from post_tags;
